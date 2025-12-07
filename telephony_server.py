@@ -2,7 +2,6 @@ import json
 import base64
 import asyncio
 import logging
-import audioop
 import numpy as np
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
