@@ -2,10 +2,14 @@
   "name": "ai-realtor-assistant",
   "version": "1.0.0",
   "description": "AI Realtor Assistant with Twilio and OpenAI",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
     "start": "tsx src/server.ts",
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "build:frontend": "cd src/frontend && npm install && npm run build",
+    "lint": "tsc --noEmit",
+    "test": "tsx test/save_lead.ts"
   },
   "dependencies": {
     "@fastify/formbody": "^8.0.2",
@@ -20,7 +24,10 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@types/ws": "^8.18.1",
+    "nodemon": "^3.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   },
   "keywords": [],
   "author": "",
