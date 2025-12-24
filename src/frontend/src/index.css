@@ -14,6 +14,10 @@
     @apply bg-white text-apple-dark antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
+
+  body.menu-open {
+    overflow: hidden;
+  }
 }
 
 .glass-nav {
