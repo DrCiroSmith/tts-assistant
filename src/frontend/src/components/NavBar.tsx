@@ -23,7 +23,7 @@ export const NavBar = () => {
 
     const closeMenu = () => setIsOpen(false);
 
-    // Close menu on escape key
+    // Close menu on escape key and manage body scroll class
     React.useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
@@ -33,13 +33,13 @@ export const NavBar = () => {
 
         if (isOpen) {
             document.addEventListener('keydown', handleEscape);
-            // Prevent body scroll when menu is open
-            document.body.style.overflow = 'hidden';
+            // Use CSS class to prevent body scroll when menu is open
+            document.body.classList.add('menu-open');
         }
 
         return () => {
             document.removeEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'unset';
+            document.body.classList.remove('menu-open');
         };
     }, [isOpen]);
 

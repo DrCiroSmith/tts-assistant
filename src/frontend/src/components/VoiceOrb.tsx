@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Mic } from 'lucide-react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
+import { clsx } from 'clsx';
 
 interface VoiceOrbProps {
     onActivate?: () => void;
@@ -13,6 +14,18 @@ export const VoiceOrb: React.FC<VoiceOrbProps> = ({ onActivate }) => {
         setIsActive(prev => !prev);
         onActivate?.();
     }, [onActivate]);
+
+    const buttonClassName = useMemo(() => clsx(
+        'relative z-10 w-24 h-24 rounded-full flex items-center justify-center',
+        'text-white shadow-2xl cursor-pointer transition-all',
+        'focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-4',
+        isActive ? 'bg-blue-600 hover:bg-blue-700' : 'bg-black hover:bg-gray-800'
+    ), [isActive]);
+
+    const rippleClassName = useMemo(() => clsx(
+        'absolute border rounded-full',
+        isActive ? 'border-blue-500/50' : 'border-blue-500/30'
+    ), [isActive]);
 
     return (
         <div 
@@ -37,9 +50,7 @@ export const VoiceOrb: React.FC<VoiceOrbProps> = ({ onActivate }) => {
 
             {/* Core Orb */}
             <motion.button
-                className={`relative z-10 w-24 h-24 rounded-full flex items-center justify-center text-white shadow-2xl cursor-pointer transition-all focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-4 ${
-                    isActive ? 'bg-blue-600 hover:bg-blue-700' : 'bg-black hover:bg-gray-800'
-                }`}
+                className={buttonClassName}
                 whileTap={{ scale: 0.95 }}
                 whileHover={{ scale: 1.05 }}
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -59,9 +70,7 @@ export const VoiceOrb: React.FC<VoiceOrbProps> = ({ onActivate }) => {
             {[1, 2, 3].map((i) => (
                 <motion.div
                     key={i}
-                    className={`absolute border rounded-full ${
-                        isActive ? 'border-blue-500/50' : 'border-blue-500/30'
-                    }`}
+                    className={rippleClassName}
                     style={{ width: '100%', height: '100%' }}
                     animate={{
                         scale: [1, 1.5],

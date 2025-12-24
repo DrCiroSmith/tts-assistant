@@ -4,11 +4,18 @@ import { handleMediaStream } from '../services/stream';
 
 const VoiceResponse = twilio.twiml.VoiceResponse;
 
-// Types for Twilio webhook requests
+/**
+ * Types for Twilio webhook requests
+ * @see https://www.twilio.com/docs/voice/twiml/gather#gather-action-parameters
+ */
 interface TwilioGatherRequest {
+    /** The digit(s) pressed by the caller (available after Gather completes) */
     Digits?: string;
+    /** The unique identifier for this call */
     CallSid?: string;
+    /** The phone number of the caller */
     From?: string;
+    /** The phone number being called */
     To?: string;
 }
 

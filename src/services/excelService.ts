@@ -18,17 +18,23 @@ const csvHeaders: CsvHeader[] = [
     { id: 'language', title: 'LANGUAGE' },
 ];
 
-// Initialize CSV file with headers if it doesn't exist
-function initializeCsvFile(): void {
+/**
+ * Initialize CSV file with headers if it doesn't exist
+ * @returns true if file exists or was created successfully, false otherwise
+ */
+function initializeCsvFile(): boolean {
     if (!fs.existsSync(csvPath)) {
         try {
             const headers = csvHeaders.map(h => h.title).join(',');
             fs.writeFileSync(csvPath, headers + '\n');
             console.log('Initialized leads.csv with headers');
+            return true;
         } catch (error) {
             console.error('Error initializing CSV file:', error);
+            return false;
         }
     }
+    return true;
 }
 
 // Initialize on module load

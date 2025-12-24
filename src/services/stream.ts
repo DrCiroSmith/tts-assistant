@@ -168,8 +168,9 @@ export function handleMediaStream(connection: WebSocket, req: FastifyRequest) {
             // Attempt reconnection if not intentionally closing
             if (!isClosing && reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
                 reconnectAttempts++;
-                console.log(`Attempting to reconnect to OpenAI (${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})...`);
-                setTimeout(connectToOpenAI, RECONNECT_DELAY_MS * reconnectAttempts);
+                const backoffDelay = Math.pow(2, reconnectAttempts - 1) * RECONNECT_DELAY_MS;
+                console.log(`Attempting to reconnect to OpenAI (${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS}) in ${backoffDelay}ms...`);
+                setTimeout(connectToOpenAI, backoffDelay);
             }
         });
     }
